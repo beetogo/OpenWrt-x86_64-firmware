@@ -18,9 +18,10 @@ env:
 
 on:
   workflow_dispatch:
-#  schedule:
+# schedule:
 #    - cron: 0 */18 * * *
-
+  schedule:
+    - cron: 15 6 * * *
 jobs:
   check:
     runs-on: ubuntu-latest
