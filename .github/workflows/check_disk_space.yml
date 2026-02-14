@@ -1,0 +1,20 @@
+name: Only Check Disk Space
+on: [push, pull_request]
+
+jobs:
+  check-space:
+    runs-on: ubuntu-latest
+    steps:
+      # 唯一步骤：直接查看磁盘空间
+      - name: Directly check disk space
+        run: |
+          echo "===== 全局磁盘空间概况 ====="
+          df -h  # 查看所有挂载点的总容量/已用/可用
+          
+          echo -e "\n===== 报错目录（_diag）空间 ====="
+          # 专门查看你报错的日志目录占用
+          du -sh /home/runner/actions-runner/cached/_diag/* 2>/dev/null || echo "该目录暂无文件"
+          
+          echo -e "\n===== 根目录（/）占用前20的文件夹 ====="
+          # 找出根目录下最占空间的文件夹，定位元凶
+          sudo du -h -d1 / | sort -hr | head -20
