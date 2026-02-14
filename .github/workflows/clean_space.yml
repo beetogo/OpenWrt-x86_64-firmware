@@ -1,0 +1,15 @@
+name: Clean Disk Space
+on: [push]
+jobs:
+  clean:
+    runs-on: ubuntu-latest
+    steps:  # 只有 steps 下面的步骤才用 - 开头
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+        with:
+          tool-cache: true
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          swap-storage: true
